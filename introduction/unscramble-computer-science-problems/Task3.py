@@ -12,6 +12,44 @@ with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
 
+areaCode_mobilePreFixed_no_duplciate=[]
+mobile_count=0
+fixedLine_count=0
+fixedLine_to_bangalore=0
+tele_marketer=0 # expected to be zero because they don't receive calls 
+for e in calls:
+  #finding incoming calls made from Bangalore
+  if e[0][1:4]=='080':
+    #finding mobile prefixes for calls made from Bangalore to mobile numbers
+    if e[1][5]==' ':
+      mobile_count+=1
+      if e[1][0:4] not in areaCode_mobilePreFixed_no_duplciate:
+        areaCode_mobilePreFixed_no_duplciate.append(e[1][0:4])
+    #finding area codes for calls made from Bangalore to fixed lines
+    elif e[1][0]=='(':
+      fixedLine_count+=1
+      if e[1][1:e[1].find(')')] not in areaCode_mobilePreFixed_no_duplciate:
+        areaCode_mobilePreFixed_no_duplciate.append(e[1][1:e[1].find(')')])
+      # calls made to a fixed line in Bangalore:
+      if e[1][1:4]=='080':
+         fixedLine_to_bangalore+=1
+    #telemarketers if there is any
+    else:
+      tele_marketer+=1
+
+print("The numbers called by people in Bangalore have codes: "+'\n')
+
+# sorting the list:
+areaCode_mobilePreFixed_no_duplciate.sort()
+
+#printing the list:
+for e in areaCode_mobilePreFixed_no_duplciate:
+   print(e)
+
+print('\n'+f"{(fixedLine_to_bangalore/(mobile_count+fixedLine_count+tele_marketer))*100:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
+
+
+
 """
 TASK 3:
 (080) is the area code for fixed line telephones in Bangalore.
