@@ -12,7 +12,8 @@ with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
 
-areaCode_mobilePreFixed_no_duplciate=[]
+#areaCode_mobilePreFixed_no_duplciate=[]
+areaCode_mobilePreFixed_no_duplciate=set()
 mobile_count=0
 fixedLine_count=0
 fixedLine_to_bangalore=0
@@ -23,13 +24,11 @@ for e in calls:
     #finding mobile prefixes for calls made from Bangalore to mobile numbers
     if e[1][5]==' ':
       mobile_count+=1
-      if e[1][0:4] not in areaCode_mobilePreFixed_no_duplciate:
-        areaCode_mobilePreFixed_no_duplciate.append(e[1][0:4])
+      areaCode_mobilePreFixed_no_duplciate.add(e[1][0:4])
     #finding area codes for calls made from Bangalore to fixed lines
     elif e[1][0]=='(':
       fixedLine_count+=1
-      if e[1][1:e[1].find(')')] not in areaCode_mobilePreFixed_no_duplciate:
-        areaCode_mobilePreFixed_no_duplciate.append(e[1][1:e[1].find(')')])
+      areaCode_mobilePreFixed_no_duplciate.add(e[1][1:e[1].find(')')])
       # calls made to a fixed line in Bangalore:
       if e[1][1:4]=='080':
          fixedLine_to_bangalore+=1
@@ -40,6 +39,7 @@ for e in calls:
 print("The numbers called by people in Bangalore have codes: "+'\n')
 
 # sorting the list:
+areaCode_mobilePreFixed_no_duplciate=list(areaCode_mobilePreFixed_no_duplciate)
 areaCode_mobilePreFixed_no_duplciate.sort()
 
 #printing the list:

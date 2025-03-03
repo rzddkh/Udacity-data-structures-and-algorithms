@@ -11,18 +11,12 @@ with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
     
-numbers={}
+numbers={} # declare dict numbers 
 
+for e in calls:
+    numbers[e[0]]=numbers.get(e[0],0)+int(e[3])
+    numbers[e[1]]=numbers.get(e[1],0)+int(e[3])
 
-for e in (calls):
-    if (e[0] not in numbers):
-        numbers[e[0]]=int(e[3])
-    else:
-        numbers[e[0]]+=int(e[3])
-    if (e[1] not in numbers):
-        numbers[e[1]]=int(e[3])
-    else:
-        numbers[e[1]]+=int(e[3])
 
 print(f"{max(numbers,key=numbers.get)} spent the longest time, {numbers[max(numbers,key=numbers.get)]} seconds, on the phone during September 2016.")
 

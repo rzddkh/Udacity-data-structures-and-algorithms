@@ -12,38 +12,29 @@ with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
 
-callers=[]  # list of callers   
-receivers=[]    # list of receivers 
-not_receiving_calls=[] #list of numbers not receiving calls 
-receive_text=[] #list of numbers receiving text
-send_text=[] #list fo numbers sending text
-no_text=[]  #not sending or receiving text
+
+callers=set()  # list of callers   
+receivers=set()    # list of receivers 
+not_receiving_calls=set() #list of numbers not receiving calls 
+receive_text=set() #list of numbers receiving text
+send_text=set() #list fo numbers sending text
+no_text=set()  #not sending or receiving text
 
 # calls format: ['78130 00821', '98453 94494', '01-09-2016 06:01:12', '186']
 # text format: ['97424 22395', '90365 06212', '01-09-2016 06:03:22']
 
-# find the list of numbers that are recieving calls and compare it to the ones making the calls 
+# find the set of numbers for callers, receivers, text senders and text receivers. substract the sets from callers would give us the possible tele marketers.
+
 
 for e in calls:
-        callers.append(e[0])
-        receivers.append(e[1])
-
-for number in callers:
-    if (number not in receivers):
-        not_receiving_calls.append(number)
+        callers.add(e[0])
+        receivers.add(e[1])
 
 for e in texts:
-    send_text.append(texts[0])
-    receive_text.append(texts[1])
+    send_text.add(e[0])
+    receive_text.add(e[1])
 
-for number in callers:
-    if number not in send_text:
-        no_text.append(number)
-for number in callers:
-    if number not in receive_text:
-        no_text.append(number)
-
-tele_marketer=not_receiving_calls+no_text
+tele_marketer=callers-send_text-receive_text-receivers
 tele_marketer= set(tele_marketer)
 tele_marketer= list(tele_marketer)
 print("These numbers could be telemarketers: ")

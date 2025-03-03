@@ -21,8 +21,6 @@ Print messages:
 
 #since the lists are ordered ascending by timestamp the last and first element of each list is obvious
 
-last_call_index=len(calls)-1
-
-print (f"First record of texts, {texts[0][0]} texts {texts[0][1]} at time {texts[0][2]}")
-print (f"Last record of calls, {calls[last_call_index][0]} calls {calls[last_call_index][1]} at time {calls[last_call_index][2]}, lasting {calls[last_call_index][3]} seconds")
+print("First record of texts, {} texts {} at time {}".format(*texts[0]))
+print('Last record of calls, {} calls {} at time {}, lasting {} seconds'.format(*calls[-1]))
 
