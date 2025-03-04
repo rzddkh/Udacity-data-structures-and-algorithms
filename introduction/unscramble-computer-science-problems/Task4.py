@@ -14,11 +14,7 @@ with open('calls.csv', 'r') as f:
 
 
 callers=set()  # list of callers   
-receivers=set()    # list of receivers 
-not_receiving_calls=set() #list of numbers not receiving calls 
-receive_text=set() #list of numbers receiving text
-send_text=set() #list fo numbers sending text
-no_text=set()  #not sending or receiving text
+not_telemarketer=set()    # list of call receivers, text receivers and text senders  
 
 # calls format: ['78130 00821', '98453 94494', '01-09-2016 06:01:12', '186']
 # text format: ['97424 22395', '90365 06212', '01-09-2016 06:03:22']
@@ -28,13 +24,13 @@ no_text=set()  #not sending or receiving text
 
 for e in calls:
         callers.add(e[0])
-        receivers.add(e[1])
+        not_telemarketer.add(e[1])
 
 for e in texts:
-    send_text.add(e[0])
-    receive_text.add(e[1])
+    not_telemarketer.add(e[0])
+    not_telemarketer.add(e[1])
 
-tele_marketer=callers-send_text-receive_text-receivers
+tele_marketer=callers-not_telemarketer
 tele_marketer= set(tele_marketer)
 tele_marketer= list(tele_marketer)
 print("These numbers could be telemarketers: ")
@@ -44,7 +40,6 @@ tele_marketer.sort()
 
 for e in tele_marketer:
     print(e)
-print (len(tele_marketer))
 """
 TASK 4:
 The telephone company want to identify numbers that might be doing

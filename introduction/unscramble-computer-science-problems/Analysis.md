@@ -100,11 +100,11 @@ Create a set of possible telemarketers:
 These are numbers that make outgoing calls but never send texts,
 receive texts or receive incoming calls.
 
-**Approach**: Using a 2 for loop, create 4 sets for phone numbers doing following actions: outgoing calls, receiving calls, sending text and receiving text. Now we simply substract receivers, test senders and text receivers from callers.
+**Approach**: Using 2 for loop, create 2 sets for phone numbers doing following actions: 1 set for outgoing calls,and 1 set for receiving calls, sending text and receiving text. Now we simply substract receivers, test senders and text receivers' set from callers' set.
 
 **Complexity Analysis**:
 
-- **Algorithm**: finding the sets for each category: callers, receivers, texters and text receiver. Then substract receivers, texters and text receiver sets from callers set using - operator.
+- **Algorithm**: finding the sets for each category: callers, receivers, texters and text receiver. Then substract receivers, texters and text receivers' set from callers set using - operator.
 
 - **Big O Notation**:
 
@@ -114,4 +114,4 @@ receive texts or receive incoming calls.
   - $n$ is the number of elements.
   - Time complexity for sorting using .sort() is O(n log n)
   - Time complexity of a for loop is O(n).
-  - The time complexity for this task is O(3n) + O(n log n) => O(n log n)
+  - The time complexity for this task is O(2n) + O(n log n) => O(n log n)
